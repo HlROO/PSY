@@ -1,25 +1,82 @@
-# Présentation du Projet "P.S.Y"
+# Projet PSY
+Projet "Tests et Contrôles en Hôpital Psychiatrique"
 
-Ce fichier vise à expliquer le projet scolaire "P.S.Y" réalisé par une équipe de trois étudiants. Chaque membre a une tâche définie, contribuant ainsi à la réalisation d'un projet concret. Le projet est basé sur un scénario spécifique, celui d'un hôpital psychiatrique.
+## Domaine(s) d'activité(s) du système support du projet :
 
-## Objectif du Projet
+- Informatique, réseaux et infrastructures
+- Multimédia, son et image, radio et télédiffusion
+- Mesure, instrumentation et micro systèmes
 
-Le projet vise à répondre aux besoins spécifiques d'un hôpital psychiatrique. Chaque étudiant apporte une contribution unique pour la mise en œuvre du projet, visant à améliorer le fonctionnement et les services de l'institution.
+## Analyse de l’existant :
 
-## Description du Scénario
+Les patients atteints de dégénérescence fronto-temporale nécessitent des exercices réguliers d'attention et de mémorisation. Les activités privilégiées sont les jeux, la lecture et la discussion.
 
-Dans ce contexte, le scénario est crucial pour orienter notre travail. Nous nous concentrons sur les défis et les besoins particuliers rencontrés par l'hôpital psychiatrique. Ce scénario guide nos recherches, nos analyses et nos solutions proposées.
+Des logiciels existent pour réaliser des tests QCM, mais l'absence d'écran tactile dans les foyers des patients pose problème. Le recours à un ordinateur est difficile en raison de l'âge des patients et de leur vue défaillante.
 
-## Composition de l'Équipe
+Les pannes des réfrigérateurs à l'hôpital sont un autre problème, nécessitant une surveillance prolongée pour détecter les anomalies.
 
-Notre équipe est composée de trois membres, chacun ayant des compétences et des responsabilités spécifiques :
+## Expression du besoin :
 
-1. **Responsable de la Recherche et de l'Analyse** : Ce membre est chargé de recueillir des données pertinentes, de mener des analyses approfondies et de fournir des insights essentiels pour orienter le projet.
+### Présentation globale :
 
-2. **Développeur de Solutions Techniques** : Ce membre est responsable de la conception et de la mise en œuvre des solutions techniques. Leur expertise garantit la faisabilité et l'efficacité des solutions proposées.
+Le projet comprend deux activités distinctes :
 
-3. **Coordinateur de Communication et de Gestion de Projet** : Ce membre assure la coordination entre les différentes parties prenantes du projet, gère les échéances et communique les progrès réalisés.
+1. **Développement d'un Clavier Déporté** : Permettra aux patients de répondre aux tests sans toucher les écrans non tactiles des ordinateurs ou des télévisions familiales.
 
-## Conclusion
+![clavier](img/clv.png)
 
-En résumé, le projet "P.S.Y" est une initiative multidisciplinaire visant à répondre aux besoins spécifiques d'un hôpital psychiatrique. Grâce à notre collaboration et à nos compétences complémentaires, nous sommes déterminés à réaliser un projet impactant et efficace.
+2. **Système de Surveillance des Réfrigérateurs** : Mesurera la température du condenseur, l'intervalle entre deux compressions et détectera les fuites d'eau près des réfrigérateurs.
+
+![condensateur frigo](img/cdnfrg.png)
+![cdnfrg2](img/cdnfrg2.png)
+
+### Spécifications :
+
+- Utilisation de l'USB pour le clavier déporté, avec possibilité d'envisager d'autres interfaces sans fil.
+- Utilisation d'Android, Bluetooth et ZigBee pour la surveillance des réfrigérateurs.
+
+![diagram de context](img/diagramcontext.png)
+
+## Énoncé des tâches à réaliser par les étudiants :
+
+### Étudiant 1 :
+
+- Développement du programme de liaison USB pour le clavier.
+- Réflexion sur d'autres interfaces de liaison.
+- Développement de l'application Android en relation avec l'Étudiant 3.
+
+### Étudiant 2 :
+
+- Mesure de température et détection d'eau.
+- Programmation de la communication ZigBee.
+- Réflexion sur l'alimentation des sous-ensembles.
+
+### Étudiant 3 :
+
+- Gestion des interfaces Bluetooth et ZigBee.
+- Enregistrement et formatage des données pour l'application Android.
+- Assurer le bon fonctionnement de la station de communication.
+
+## Description structurelle du système :
+
+### Principaux constituants :
+
+- Cartes de développement
+- Boîtier du clavier
+- Smartphone
+- Élément chauffant pour simuler le condenseur du frigo
+
+### Matériels et outils logiciels :
+
+- Logiciels de développement Arduino et Microchip IDE
+- Logiciels de simulation et d'édition de schéma
+- Matériel de mesure et de soudure
+- Documentation Arduino
+
+## Contraintes :
+
+- Contraintes financières : Maintenir un coût raisonnable avec des distributeurs sélectionnés.
+- Contraintes de qualité : Les maquettes doivent être utilisables directement et conformes aux exigences.
+- Contraintes de fiabilité/sécurité : Respecter les règles de sécurité électrique pour les mesures.
+
+Ce projet vise à répondre aux besoins spécifiques de l'hôpital psychiatrique en proposant des solutions technologiques adaptées et fiables.
