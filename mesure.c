@@ -207,3 +207,6 @@ void initxbee(void)
 	    while(recfin==0);
 	    pause(100000);
     }
+
+    
+	
