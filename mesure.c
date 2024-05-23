@@ -14,76 +14,78 @@
 #define LED3    RB2
 
 int TA,TCA,H2O;
-unsigned char test,flag,flagc,flagd,k,recfin,cptint;
+unsigned char flag,flagc,flagd,k,recfin,cptint,valb;
 char rep[]="012345678901234567890123";
 char tabrec[5];
 
-__CONFIG(INTIO & WDTDIS & PWRTDIS & MCLRDIS & BORDIS & UNPROTECT);
+__CONFIG(INTIO & WDTDIS & PWRTDIS & LVPDIS & BORDIS & UNPROTECT);
 void initrs232(void);
 void initadc(void);
 int litadc(unsigned char n);
 void pause(long tpus);
 void emet(char t[]);
+void initxbee(void);
 
 void main(void){
-	TRISA=0b01111100;
-	TRISB=0;
+	TRISA=0b00100011;
+	TRISB=0xF8;
 	TRISC=0b10010000;
 	initrs232();
 	initadc();
+	//initxbee();
 	emet(rep);
 	k=0;
 	recfin=0;
 	cptint=0;
+	valb=0;
 	do{
 		TA=litadc(0);
 		pause(10000);
 		TCA=litadc(1);
-		if(TCA>20){
+		//134 fait 70øC environ
+		if(TCA>134){
 			strcpy(rep,"Surchauffe du condenseur");
 			flagc=1;
-			LED1=1;	
+			valb=valb | 0x01;
 		}
-		if(TCA<=20){
+		if(TCA<=130){
 			flagc=0;
-			LED1=0;
+			valb=valb & 0xFE;
 		}
 		if(flagc==1) {
 			emet(rep);
-			flagc=0;
 		}
 		pause(5000);
-		if(TA>=(TCA-1) && TA<=(TCA+1)) {
+		if(TCA<=(TA+5) && TCA>=(TA-5)) {
 			strcpy(rep,"Arrˆt du compresseur");
 			flagd=1;
-			LED3=1;
+			valb=valb | 0x04;
 		}
-		if(TA>(TCA+1) || TA<(TCA-1)){
+		//La diff‚rence de tension entre TCA et TA est de 4mV donc inf‚rieur … 1 en sortie du CAN
+		if(TCA>(TA+5)){
 			flagd=0;
-			LED3=0;
+			valb=valb & 0xFB;
 		}
 		if(flagd==1){
 			emet(rep);
-			flagd=0;
 		}
-		pause(10000);
+		pause(5000);
 		H2O=litadc(4);
-		if(H2O>100){
+		if(H2O>500){
 			strcpy(rep,"Fuite d'eau");
 			flag=1;
-			LED2=1;
+			valb=valb | 0x02;
 		}
-		if(H2O<=100){
+		if(H2O<=500){
 			strcpy(rep,"");
 			flag=0;
-			LED2=0;
+			valb=valb & 0xFD;
 		}
 		if(flag==1) {
 			emet(rep);
-			flag=0;
 		}
-		pause(10000);
-		test=0;	
+		PORTB=valb;
+		pause(5000);	
 	}while(1==1);
 }
 
@@ -91,7 +93,7 @@ void initrs232(void){
 	TRISC6=0;
 	TRISC7=1;
 	SPBRG=25;
-	TXSTA=0x86; /*CSRC=1 BRGH=1 TRMT=1*/
+	TXSTA=0x84; /*CSRC=1 BRGH=1 TRMT=0*/
 	RCSTA=0x90; /*SPEN=1 CREN=1*/
 }
 
@@ -207,6 +209,3 @@ void initxbee(void)
 	    while(recfin==0);
 	    pause(100000);
     }
-
-    
-	
